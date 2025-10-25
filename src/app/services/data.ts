@@ -6,12 +6,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'  // Makes this service available throughout the entire app (singleton)
 })
 export class DataService {
-  // API keys are loaded from environment configuration with fallback to process.env
-  // This supports both local development and Vercel deployment
+  // API keys are loaded from environment configuration
   // - Local: Uses environment.ts/environment.prod.ts files
-  // - Vercel: Uses environment variables set in Vercel dashboard
-  private readonly GEOAPIFY_KEY = (typeof process !== 'undefined' && process.env?.['GEOAPIFY_API_KEY']) || environment.geoapifyApiKey;
-  private readonly PEXELS_KEY = (typeof process !== 'undefined' && process.env?.['PEXELS_API_KEY']) || environment.pexelsApiKey;
+  // - Vercel: Environment variables are injected during build via vercel.json
+  private readonly GEOAPIFY_KEY = environment.geoapifyApiKey;
+  private readonly PEXELS_KEY = environment.pexelsApiKey;
 
   /**
    * Main method to fetch travel data for a given place name
