@@ -41,3 +41,6 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files - Uncomment if you have sensitive data
+# src/environments/environment.prod.ts

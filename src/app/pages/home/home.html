@@ -1,0 +1,44 @@
+<div class="p-4 max-w-3xl mx-auto">
+    <!-- 🔍 Search Bar -->
+    <form (submit)="handleSearch($event)" class="flex gap-2 mb-6">
+        <input type="text" [(ngModel)]="place" name="place" placeholder="Enter a place name... e.g. Tokyo"
+            class="flex-1 border border-gray-400 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none" />
+        <button type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition">
+            Search
+        </button>
+    </form>
+
+    <!-- 🌀 Loading -->
+    <p *ngIf="loading" class="text-gray-500">
+        ⏳ Searching for "{{ place }}"...
+    </p>
+
+    <!-- 📦 Results -->
+    <div *ngIf="!loading && data">
+        <h2 class="text-2xl font-bold mb-3">📍 {{ data.place | uppercase }}</h2>
+
+        <!-- 🏛️ Attractions -->
+        <h3 class="text-lg font-semibold mb-2">Top Attractions:</h3>
+        <ul *ngIf="data.attractions?.length > 0; else noAttractions" class="list-disc pl-6 mb-6">
+            <li *ngFor="let a of data.attractions">{{ a.properties.name }}</li>
+        </ul>
+        <ng-template #noAttractions>
+            <p class="text-gray-500">No attractions found.</p>
+        </ng-template>
+
+        <!-- 🖼️ Images -->
+        <h3 class="text-lg font-semibold mb-2">Photos:</h3>
+        <div *ngIf="data.images?.length > 0; else noImages" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <img *ngFor="let img of data.images; trackBy: trackByImgId" 
+                [src]="img.src.large" 
+                [alt]="img.alt"
+                loading="lazy"
+                class="rounded-lg shadow-md hover:scale-105 transition-transform w-full h-48 object-cover"
+                (load)="imageLoaded()" />
+        </div>
+        <ng-template #noImages>
+            <p class="text-gray-500">No photos found.</p>
+        </ng-template>
+    </div>
+</div>

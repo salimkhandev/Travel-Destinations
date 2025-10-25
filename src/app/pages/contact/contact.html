@@ -1,0 +1,36 @@
+<div class="contact-container">
+    <h1>📞 Get in Touch</h1>
+    <p class="intro">
+        We're here to help you plan your next amazing travel experience.
+        Reach out for personalized assistance or inquiries about travel spots!
+    </p>
+
+    <form (submit)="submitForm()" *ngIf="!submitted" class="contact-form">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" [(ngModel)]="name" required placeholder="Enter your full name" />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input id="email" name="email" type="email" [(ngModel)]="email" required placeholder="you@example.com" />
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" [(ngModel)]="message" required
+                placeholder="Tell us about your travel plans or questions..."></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <div *ngIf="submitted" class="thank-you">
+        <h2>✅ Thank you, {{ name }}!</h2>
+        <p>
+            We’ve received your message and will get back to you shortly at
+            <strong>{{ email }}</strong>.
+        </p>
+        <p>Safe travels! 🌍</p>
+    </div>
+</div>
