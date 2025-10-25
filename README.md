@@ -86,6 +86,39 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Deployment
+
+### Deploying to Vercel
+
+This project is configured for easy deployment on [Vercel](https://vercel.com).
+
+#### Option 1: Deploy via Vercel Dashboard (Recommended)
+
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click "Add New Project"
+3. Import your GitHub repository: `salimkhandev/Travel-Destinations`
+4. Vercel will automatically detect the Angular project configuration
+5. Set up Environment Variables in the Vercel dashboard:
+   - Add `GEOAPIFY_API_KEY` with your Geoapify key
+   - Add `PEXELS_API_KEY` with your Pexels key
+6. Click "Deploy"
+
+#### Option 2: Deploy via Vercel CLI
+
+```bash
+# Install Vercel CLI (if not already installed)
+npm i -g vercel
+
+# Deploy to production
+vercel --prod
+```
+
+#### Environment Variables on Vercel
+
+Remember to add these environment variables in your Vercel project settings:
+- `GEOAPIFY_API_KEY` - Your Geoapify API key
+- `PEXELS_API_KEY` - Your Pexels API key
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
