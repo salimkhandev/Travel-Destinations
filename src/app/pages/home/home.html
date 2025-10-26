@@ -1,44 +1,63 @@
-<div class="p-4 max-w-3xl mx-auto">
-    <!-- 🔍 Search Bar -->
-    <form (submit)="handleSearch($event)" class="flex gap-2 mb-6">
-        <input type="text" [(ngModel)]="place" name="place" placeholder="Enter a place name... e.g. Tokyo"
-            class="flex-1 border border-gray-400 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none" />
-        <button type="submit"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition">
-            Search
-        </button>
-    </form>
+<div class="home-container">
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form (submit)="handleSearch($event)" class="search-form">
+            <input type="text" [(ngModel)]="place" name="place" 
+                placeholder="Search destinations... e.g. Tokyo, Paris, Dubai"
+                class="search-input" />
+            <button type="submit" class="search-button">
+                🔍 Search
+            </button>
+        </form>
+    </div>
 
-    <!-- 🌀 Loading -->
-    <p *ngIf="loading" class="text-gray-500">
-        ⏳ Searching for "{{ place }}"...
-    </p>
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <p>⏳ Searching for "{{ place }}"...</p>
+    </div>
 
-    <!-- 📦 Results -->
+    <!-- Results -->
     <div *ngIf="!loading && data">
-        <h2 class="text-2xl font-bold mb-3">📍 {{ data.place | uppercase }}</h2>
-
-        <!-- 🏛️ Attractions -->
-        <h3 class="text-lg font-semibold mb-2">Top Attractions:</h3>
-        <ul *ngIf="data.attractions?.length > 0; else noAttractions" class="list-disc pl-6 mb-6">
-            <li *ngFor="let a of data.attractions">{{ a.properties.name }}</li>
-        </ul>
-        <ng-template #noAttractions>
-            <p class="text-gray-500">No attractions found.</p>
-        </ng-template>
-
-        <!-- 🖼️ Images -->
-        <h3 class="text-lg font-semibold mb-2">Photos:</h3>
-        <div *ngIf="data.images?.length > 0; else noImages" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <img *ngFor="let img of data.images; trackBy: trackByImgId" 
-                [src]="img.src.large" 
-                [alt]="img.alt"
-                loading="lazy"
-                class="rounded-lg shadow-md hover:scale-105 transition-transform w-full h-48 object-cover"
-                (load)="imageLoaded()" />
+        <!-- Destination Header -->
+        <div class="destination-header">
+            <span class="destination-icon">📍</span>
+            <h2 class="destination-title">{{ data.place | uppercase }}</h2>
         </div>
-        <ng-template #noImages>
-            <p class="text-gray-500">No photos found.</p>
-        </ng-template>
+
+        <!-- Attractions Section -->
+        <div class="attractions-section">
+            <h3 class="section-title">
+                <span class="section-icon">🏛️</span>
+                Top Attractions
+            </h3>
+            <ul *ngIf="data.attractions?.length > 0; else noAttractions" class="attractions-list">
+                <li *ngFor="let a of data.attractions" class="attraction-item">
+                    <span class="attraction-icon">📍</span>
+                    <span class="attraction-name">{{ a.properties.name }}</span>
+                </li>
+            </ul>
+            <ng-template #noAttractions>
+                <p class="no-data">No attractions found.</p>
+            </ng-template>
+        </div>
+
+        <!-- Photos Section -->
+        <div class="photos-section">
+            <h3 class="section-title">
+                <span class="section-icon">📸</span>
+                Photos
+            </h3>
+            <div *ngIf="data.images?.length > 0; else noImages" class="photos-grid">
+                <div *ngFor="let img of data.images; trackBy: trackByImgId" class="photo-item">
+                    <img [src]="img.src.medium || img.src.large" 
+                         [alt]="img.alt"
+                         loading="lazy"
+                         (load)="imageLoaded()" />
+                </div>
+            </div>
+            <ng-template #noImages>
+                <p class="no-data">No photos found.</p>
+            </ng-template>
+        </div>
     </div>
 </div>
