@@ -3,16 +3,21 @@
   display: block;
   min-height: 100vh;
   background: linear-gradient(to bottom, #f3f4f6, #ffffff);
+  padding-top: 70px;
 }
 
 /* Header styles */
 app-header {
-  position: sticky;
-  top: 0;
+  display: block;
   z-index: 1000;
 }
 
-/* Router outlet container */
+/* Router outlet container - add padding for fixed header */
+router-outlet {
+  display: block;
+  width: 100%;
+}
+
 router-outlet + * {
   display: block;
   width: 100%;

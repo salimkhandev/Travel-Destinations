@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 // Component decorator - defines this as an Angular component
 @Component({
@@ -8,7 +8,24 @@ import { Component } from '@angular/core';
   styleUrl: './header.css',         // CSS style file for this component
 })
 export class Header {
-  // This component serves as a navigation bar
-  // Contains navigation links defined in the header.html template
-  // No logic needed - just displays navigation links using router links
+  // Mobile menu state
+  isMobileMenuOpen = false;
+
+  // Toggle mobile menu
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  // Close mobile menu
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+  }
+
+  // Close mobile menu when clicking outside or on window resize
+  @HostListener('window:resize')
+  onResize() {
+    if (window.innerWidth > 768) {
+      this.isMobileMenuOpen = false;
+    }
+  }
 }
